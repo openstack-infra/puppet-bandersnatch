@@ -36,7 +36,7 @@ def main():
     output = subprocess.check_output(
         ['bandersnatch', 'mirror'], stderr=subprocess.STDOUT)
     for line in output.split('\n'):
-        print(line)
+        logger.debug("stdout: {0}".format(line))
         if 'Expected PyPI serial' in line:
             url = line.split("for request ")[1].split()[0]
             stale[url] = True
