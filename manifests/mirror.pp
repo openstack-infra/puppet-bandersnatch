@@ -18,8 +18,12 @@
 #
 class bandersnatch::mirror (
   $vhost_name,
+  $user = 'root',
+  $group = 'root',
   $mirror_root = '/srv/static/mirror',
-  $static_root = '/srv/static'
+  $static_root = '/srv/static',
+  $daily_snapshots = false,
+  $snapshot_retention = 5,
 ) {
 
   if ! defined(File[$static_root]) {
@@ -30,15 +34,15 @@ class bandersnatch::mirror (
 
   file { $mirror_root:
     ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
+    owner   => $user,
+    group   => $group,
     require => File[$static_root],
   }
 
   file { "${mirror_root}/web":
     ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
+    owner   => $user,
+    group   => $group,
     require => File[$mirror_root],
   }
 
@@ -53,8 +57,8 @@ class bandersnatch::mirror (
 
   file { "${mirror_root}/web/robots.txt":
     ensure  => present,
-    owner   => 'root',
-    group   => 'root',
+    owner   => $user,
+    group   => $group,
     mode    => '0444',
     source  => 'puppet:///modules/bandersnatch/robots.txt',
     require => File["${mirror_root}/web"],
@@ -65,9 +69,21 @@ class bandersnatch::mirror (
     content  => template('bandersnatch/bandersnatch.conf.erb'),
   }
 
+  if $daily_snapshots {
+    $cron_command = "run-bandersnatch && run-bandersnatch-snapshotting ${mirror_root}/web ${snapshot_retention}"
+    file { '/usr/local/bin/run-bandersnatch-snapshotting':
+      ensure => present,
+      source => 'puppet:///modules/bandersnatch/run_snapshotting.sh',
+      mode   => '0755',
+    }
+  }
+  else {
+    $cron_command = 'run-bandersnatch'
+  }
+
   cron { 'bandersnatch':
     minute      => '*/5',
-    command     => 'flock -n /var/run/bandersnatch/mirror.lock timeout -k 2m 30m run-bandersnatch >>/var/log/bandersnatch/mirror.log 2>&1',
+    command     => "/bin/sh -l -c \"flock -n /var/run/lock/mirror.lock timeout -k 2m 30m ${cron_command} >>/var/log/bandersnatch/mirror.log 2>&1\"",
     environment => 'PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin',
   }
 }
