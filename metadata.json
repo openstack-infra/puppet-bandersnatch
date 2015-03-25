@@ -1,0 +1,11 @@
+{
+  "name": "openstackci-bandersnatch",
+  "version": "0.0.1",
+  "author": "Openstack CI",
+  "summary": "Puppet module for Bandersnatch",
+  "license": "Apache 2.0",
+  "source": "https://github.com/notnownikki/puppet-bandersnatch.git",
+  "project_page": "https://github.com/notnownikki/puppet-bandersnatch",
+  "issues_url": "https://github.com/notnownikki/puppet-bandersnatch/issues",
+  "dependencies": []
+}
