@@ -31,7 +31,7 @@ class bandersnatch {
     ensure => directory,
   }
 
-  include logrotate
+  include ::logrotate
   logrotate::file { 'bandersnatch':
     log     => '/var/log/bandersnatch/mirror.log',
     options => [

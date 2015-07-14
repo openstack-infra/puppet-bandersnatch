@@ -42,7 +42,7 @@ class bandersnatch::mirror (
     require => File[$mirror_root],
   }
 
-  include apache
+  include ::apache
 
   apache::vhost { $vhost_name:
     port     => 80,
