@@ -45,10 +45,10 @@ class bandersnatch {
   }
 
   file { '/usr/local/bin/run-bandersnatch':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    source  => 'puppet:///modules/bandersnatch/run_bandersnatch.py',
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => 'puppet:///modules/bandersnatch/run_bandersnatch.py',
   }
 }

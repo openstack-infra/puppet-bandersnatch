@@ -61,8 +61,8 @@ class bandersnatch::mirror (
   }
 
   file { '/etc/bandersnatch.conf':
-    ensure   => present,
-    content  => template('bandersnatch/bandersnatch.conf.erb'),
+    ensure  => present,
+    content => template('bandersnatch/bandersnatch.conf.erb'),
   }
 
   cron { 'bandersnatch':
