@@ -19,7 +19,9 @@
 class bandersnatch::mirror (
   $vhost_name,
   $mirror_root = '/srv/static/mirror',
-  $static_root = '/srv/static'
+  $static_root = '/srv/static',
+  $user = 'root',
+  $group = 'root
 ) {
 
   if ! defined(File[$static_root]) {
@@ -30,15 +32,15 @@ class bandersnatch::mirror (
 
   file { $mirror_root:
     ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
+    owner   => $user,
+    group   => $group,
     require => File[$static_root],
   }
 
   file { "${mirror_root}/web":
     ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
+    owner   => $user,
+    group   => $group,
     require => File[$mirror_root],
   }
 
@@ -53,8 +55,8 @@ class bandersnatch::mirror (
 
   file { "${mirror_root}/web/robots.txt":
     ensure  => present,
-    owner   => 'root',
-    group   => 'root',
+    owner   => $user,
+    group   => $group,
     mode    => '0444',
     source  => 'puppet:///modules/bandersnatch/robots.txt',
     require => File["${mirror_root}/web"],
