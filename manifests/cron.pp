@@ -23,7 +23,7 @@ class bandersnatch::cron (
   cron { 'bandersnatch':
     user        => $user,
     minute      => '*/5',
-    command     => 'flock -n /var/run/bandersnatch/mirror.lock timeout -k 2m 30m run-bandersnatch >>/var/log/bandersnatch/mirror.log 2>&1',
+    command     => '/bin/sh -l -c "flock -n /var/run/bandersnatch/mirror.lock timeout -k 2m 30m run-bandersnatch >>/var/log/bandersnatch/mirror.log 2>&1"',
     environment => 'PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin',
   }
 }
