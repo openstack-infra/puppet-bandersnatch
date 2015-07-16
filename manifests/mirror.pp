@@ -42,9 +42,9 @@ class bandersnatch::mirror (
     require => File[$mirror_root],
   }
 
-  include ::apache
+  include ::httpd
 
-  apache::vhost { $vhost_name:
+  ::httpd::vhost { $vhost_name:
     port     => 80,
     priority => '50',
     docroot  => "${mirror_root}/web",
