@@ -1,0 +1,9 @@
+Verified+2: Jenkins
+Code-Review+2: yolanda.robla <info@ysoft.biz>
+Code-Review+2: Spencer Krum <nibz@spencerkrum.com>
+Workflow+1: Spencer Krum <nibz@spencerkrum.com>
+Submitted-by: Jenkins
+Submitted-at: Wed, 22 Jul 2015 17:04:38 +0000
+Reviewed-on: https://review.openstack.org/202609
+Project: openstack-infra/puppet-bandersnatch
+Branch: refs/heads/master
