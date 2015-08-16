@@ -21,7 +21,7 @@ class bandersnatch::mirror (
   $mirror_root = '/srv/static/mirror',
   $static_root = '/srv/static',
   $user = 'root',
-  $group = 'root'
+  $group = 'root',
 ) {
 
   if ! defined(File[$static_root]) {
