@@ -37,7 +37,9 @@ class bandersnatch::mirror (
     require => File[$static_root],
   }
 
-  file { "${mirror_root}/web":
+  $document_root = "${mirror_root}/web"
+
+  file { $document_root:
     ensure  => directory,
     owner   => $user,
     group   => $group,
@@ -49,8 +51,9 @@ class bandersnatch::mirror (
   ::httpd::vhost { $vhost_name:
     port     => 80,
     priority => '50',
-    docroot  => "${mirror_root}/web",
-    require  => File["${mirror_root}/web"],
+    docroot  => $document_root,
+    template => 'bandersnatch/bandersnatch.vhost.erb',
+    require  => File[$document_root],
   }
 
   file { "${mirror_root}/web/robots.txt":
