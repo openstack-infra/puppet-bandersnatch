@@ -1,0 +1,16 @@
+NameVirtualHost *:80
+<VirtualHost *:80>
+  ServerName <%= scope.lookupvar("bandersnatch::mirror::vhost_name") %>
+  DocumentRoot <%= scope.lookupvar("bandersnatch::mirror::document_root") %>
+  <Directory <%= scope.lookupvar("bandersnatch::mirror::document_root") %>>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+    Require all granted
+  </Directory>
+  ErrorLog /var/log/<%= scope.lookupvar("httpd::params::apache_name") %>/<%= scope.lookupvar("bandersnatch::mirror::vhost_name") %>_error.log
+  LogLevel warn
+  CustomLog /var/log/<%= scope.lookupvar("httpd::params::apache_name") %>/<%= scope.lookupvar("bandersnatch::mirror::vhost_name") %>_access.log combined
+  ServerSignature Off
+</VirtualHost>
