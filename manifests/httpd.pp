@@ -18,17 +18,19 @@
 #
 class bandersnatch::httpd (
   $vhost_name,
-  $group       = 'root',
-  $mirror_root = '/srv/static/mirror',
-  $user        = 'root',
+  $group         = 'root',
+  $mirror_root   = '/srv/static/mirror',
+  $serveraliases = [],
+  $user          = 'root',
 ) {
   include ::httpd
 
   ::httpd::vhost { $vhost_name:
-    port     => 80,
-    priority => '50',
-    docroot  => "${mirror_root}/web",
-    require  => File["${mirror_root}/web"],
+    port          => 80,
+    priority      => '50',
+    docroot       => "${mirror_root}/web",
+    serveraliases => $serveraliases,
+    require       => File["${mirror_root}/web"],
   }
 
   file { "${mirror_root}/web/robots.txt":
