@@ -17,7 +17,6 @@
 # Class to set up bandersnatch mirroring.
 #
 class bandersnatch::mirror (
-  $vhost_name,
   $mirror_root = '/srv/static/mirror',
   $static_root = '/srv/static',
   $user = 'root',
@@ -43,24 +42,6 @@ class bandersnatch::mirror (
     owner   => $user,
     group   => $group,
     require => File[$mirror_root],
-  }
-
-  include ::httpd
-
-  ::httpd::vhost { $vhost_name:
-    port     => 80,
-    priority => '50',
-    docroot  => "${mirror_root}/web",
-    require  => File["${mirror_root}/web"],
-  }
-
-  file { "${mirror_root}/web/robots.txt":
-    ensure  => present,
-    owner   => $user,
-    group   => $group,
-    mode    => '0444',
-    source  => 'puppet:///modules/bandersnatch/robots.txt',
-    require => File["${mirror_root}/web"],
   }
 
   file { '/etc/bandersnatch.conf':
