@@ -16,11 +16,31 @@
 #
 # Class to install common bandersnatch items.
 #
-class bandersnatch {
+class bandersnatch (
+  $bandersnatch_source = 'pip',
+) {
 
-  package { 'bandersnatch':
-    ensure   => 'present',
-    provider => 'pip',
+  if ($bandersnatch_source == 'pip') {
+    package { 'bandersnatch':
+      ensure   => 'present',
+      provider => 'pip',
+    }
+  } else {
+    vcsrepo { '/opt/bandersnatch':
+      ensure   => latest,
+      provider => hg,
+      source   => $bandersnatch_source,
+    }
+
+    exec { 'install_bandersnatch' :
+      command     => 'pip install -U /opt/bandersnatch',
+      path        => '/usr/local/bin:/usr/bin:/bin/',
+      refreshonly => true,
+      subscribe   => Vcsrepo['/opt/bandersnatch'],
+      require     => [
+        Class['pip'],
+      ],
+    }
   }
 
   file { '/var/log/bandersnatch':
