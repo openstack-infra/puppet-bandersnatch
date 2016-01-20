@@ -20,6 +20,10 @@ timeout = 10
 ; - anything beyond 50 is probably unreasonable and avoided by bandersnatch
 workers = 3
 
+<% if @hash_index == true -%>
+hash-index = true
+<% end -%>
+
 ; Whether to stop a sync quickly after an error is found or whether to continue
 ; syncing but not marking the sync as successful. Value should be "true" or
 ; "false".
