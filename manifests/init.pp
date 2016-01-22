@@ -20,6 +20,12 @@ class bandersnatch (
   $bandersnatch_source = 'pip',
 ) {
 
+  if ! defined(Package['mercurial']) {
+    package { 'mercurial':
+      ensure => present,
+    }
+  }
+
   if ($bandersnatch_source == 'pip') {
     package { 'bandersnatch':
       ensure   => 'present',
