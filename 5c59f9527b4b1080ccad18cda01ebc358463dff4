@@ -1,0 +1,9 @@
+Code-Review+2: Monty Taylor <mordred@inaugust.com>
+Code-Review+2: James E. Blair <corvus@inaugust.com>
+Workflow+1: James E. Blair <corvus@inaugust.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 22 Jan 2016 23:07:51 +0000
+Reviewed-on: https://review.openstack.org/271548
+Project: openstack-infra/puppet-bandersnatch
+Branch: refs/heads/master
