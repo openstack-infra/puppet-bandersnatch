@@ -18,9 +18,9 @@
 #
 class bandersnatch::httpd (
   $vhost_name,
+  $group       = 'root',
   $mirror_root = '/srv/static/mirror',
-  $user = 'root',
-  $group = 'root',
+  $user        = 'root',
 ) {
   include ::httpd
 
