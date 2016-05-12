@@ -33,8 +33,11 @@ def main():
     setup_logging(logger)
 
     stale = dict()
-    output = subprocess.check_output(
-        ['bandersnatch', 'mirror'], stderr=subprocess.STDOUT)
+    try:
+        output = subprocess.check_output(
+            ['bandersnatch', 'mirror'], stderr=subprocess.STDOUT)
+    except Exception as e:
+        output = str(e.output)
     for line in output.split('\n'):
         print(line)
         if 'Expected PyPI serial' in line:
