@@ -18,6 +18,7 @@
 #
 class bandersnatch (
   $bandersnatch_source = 'pip',
+  $revision = 'latest',
 ) {
 
   if ! defined(Package['mercurial']) {
@@ -28,7 +29,7 @@ class bandersnatch (
 
   if ($bandersnatch_source == 'pip') {
     package { 'bandersnatch':
-      ensure   => latest,
+      ensure   => $revision,
       provider => openstack_pip,
     }
   } else {
@@ -36,6 +37,8 @@ class bandersnatch (
       ensure   => latest,
       provider => hg,
       source   => $bandersnatch_source,
+      revision => $revision,
+      require  => Package['mercurial'],
     }
 
     exec { 'install_bandersnatch' :
