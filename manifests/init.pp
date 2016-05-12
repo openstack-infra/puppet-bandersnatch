@@ -18,6 +18,10 @@
 #
 class bandersnatch (
   $bandersnatch_source = 'pip',
+  $revision = '1.11',
+  # Bandersnatch v2 only supports python and starts at 3.5
+  # We'll need to install python3 and upgrade to xenial before we can
+  # use that.
 ) {
 
   if ! defined(Package['mercurial']) {
@@ -28,10 +32,7 @@ class bandersnatch (
 
   if ($bandersnatch_source == 'pip') {
     package { 'bandersnatch':
-      # Bandersnatch v2 only supports python and starts at 3.5
-      # We'll need to install python3 and upgrade to xenial before we can
-      # use that.
-      ensure   => '1.11',
+      ensure   => $revision,
       provider => openstack_pip,
     }
   } else {
@@ -39,6 +40,8 @@ class bandersnatch (
       ensure   => latest,
       provider => hg,
       source   => $bandersnatch_source,
+      revision => $revision,
+      require  => Package['mercurial'],
     }
 
     exec { 'install_bandersnatch' :
