@@ -56,21 +56,25 @@ def main():
     setup_logging(logger)
 
     stale = dict()
-    output = subprocess.check_output(
-        ['bandersnatch', 'mirror'], stderr=subprocess.STDOUT)
-    for line in output.split('\n'):
-        print(line)
-        if 'Expected PyPI serial' in line:
-            url = line.split("for request ")[1].split()[0]
-            stale[url] = True
-    for stale_url in stale.keys():
-        logger.info('Purging URLs for stale request %s' % stale_url)
-        for url in get_purge_urls(request_url):
-            logger.info('Purging %s' % url)
-            response = requests.request('PURGE', url)
-            if not response.ok:
-                logger.error('Failed to purge %s: %s' % (url, response.text))
+    p = subprocess.Popen(['bandersnatch', 'mirror'],
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT,
+                         bufsize=1)
+    with p.stdout:
+        for line in iter(p.stdout.readline, b''):
+            print(line)
+            if 'Expected PyPI serial' in line:
+                url = line.split("for request ")[1].split()[0]
+                stale[url] = True
+        for stale_url in stale.keys():
+            logger.info('Purging URLs for stale request %s' % stale_url)
+            for url in get_purge_urls(request_url):
+                logger.info('Purging %s' % url)
+                response = requests.request('PURGE', url)
+                if not response.ok:
+                    logger.error('Failed to purge %s: %s' % (url, response.text))
             time.sleep(0.1)
+    p.wait()
 
 
 if __name__ == '__main__':

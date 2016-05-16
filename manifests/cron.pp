@@ -17,13 +17,17 @@
 # Class to set up bandersnatch cron job.
 #
 class bandersnatch::cron (
+  $timeout_duration = undef,
+  $timeout_kill_duration = undef,
   $user = 'root',
 ) {
+
+  $cron_timeout = inline_template("<% if @timeout_duration -%> timeout <% if @timeout_kill_duration -%> -k $timeout_kill_duration <% end -%> $timeout_duration <% end -%>")
 
   cron { 'bandersnatch':
     user        => $user,
     minute      => '*/5',
-    command     => 'flock -n /var/run/bandersnatch/mirror.lock timeout -k 2m 30m run-bandersnatch >>/var/log/bandersnatch/mirror.log 2>&1',
+    command     => "flock -n /var/run/bandersnatch/mirror.lock ${cron_timeout} run-bandersnatch >>/var/log/bandersnatch/mirror.log 2>&1",
     environment => 'PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin',
   }
 }
