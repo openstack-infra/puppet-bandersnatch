@@ -11,3 +11,10 @@ exec { 'install pip using get-pip':
   refreshonly => true,
   subscribe   => Exec['download get-pip.py'],
 }
+
+# Install selinux utils so that we can manage apache directory permissions for CentOS
+if $::osfamily == 'RedHat' {
+  package { 'policycoreutils-python':
+    ensure => present,
+  }
+}
