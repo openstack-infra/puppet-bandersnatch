@@ -29,7 +29,7 @@ class bandersnatch (
   if ($bandersnatch_source == 'pip') {
     package { 'bandersnatch':
       ensure   => 'present',
-      provider => 'pip',
+      provider => openstack_pip,
     }
   } else {
     vcsrepo { '/opt/bandersnatch':
