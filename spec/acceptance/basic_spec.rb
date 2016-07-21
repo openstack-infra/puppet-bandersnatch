@@ -34,12 +34,6 @@ describe 'puppet-bandersnatch module' do
   end
 
   describe 'required services' do
-    # Before bandersnatch has run
-    describe command('curl localhost') do
-      its(:stdout) { should contain('Index of /') }
-      its(:stdout) { should_not contain('simple/') }
-    end
-
     # Wait for bandersnatch to run
     describe command('sleep 480 && curl localhost') do
       its(:stdout) { should contain('Index of /') }
