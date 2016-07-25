@@ -1,0 +1,9 @@
+Code-Review+2: Clark Boylan <cboylan@sapwetik.org>
+Code-Review+2: Colleen Murphy <colleen@gazlene.net>
+Workflow+1: Colleen Murphy <colleen@gazlene.net>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Mon, 25 Jul 2016 20:21:12 +0000
+Reviewed-on: https://review.openstack.org/332514
+Project: openstack-infra/puppet-bandersnatch
+Branch: refs/heads/master
