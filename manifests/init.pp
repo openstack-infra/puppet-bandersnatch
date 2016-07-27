@@ -28,7 +28,7 @@ class bandersnatch (
 
   if ($bandersnatch_source == 'pip') {
     package { 'bandersnatch':
-      ensure   => 'present',
+      ensure   => latest,
       provider => openstack_pip,
     }
   } else {
