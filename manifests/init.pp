@@ -18,6 +18,8 @@
 #
 class bandersnatch (
   $bandersnatch_source = 'pip',
+  $group       = 'root',
+  $user        = 'root',
 ) {
 
   if ! defined(Package['mercurial']) {
@@ -51,10 +53,14 @@ class bandersnatch (
 
   file { '/var/log/bandersnatch':
     ensure => directory,
+    group  => $group,
+    owner  => $user,
   }
 
   file { '/var/run/bandersnatch':
     ensure => directory,
+    group  => $group,
+    owner  => $user,
   }
 
   include ::logrotate
