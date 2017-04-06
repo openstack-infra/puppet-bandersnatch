@@ -28,7 +28,10 @@ class bandersnatch (
 
   if ($bandersnatch_source == 'pip') {
     package { 'bandersnatch':
-      ensure   => latest,
+      # Bandersnatch v2 only supports python and starts at 3.5
+      # We'll need to install python3 and upgrade to xenial before we can
+      # use that.
+      ensure   => '1.11',
       provider => openstack_pip,
     }
   } else {
