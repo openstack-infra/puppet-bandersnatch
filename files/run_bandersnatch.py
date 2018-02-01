@@ -65,7 +65,7 @@ def main():
             stale[url] = True
     for stale_url in stale.keys():
         logger.info('Purging URLs for stale request %s' % stale_url)
-        for url in get_purge_urls(request_url):
+        for url in get_purge_urls(stale_url):
             logger.info('Purging %s' % url)
             response = requests.request('PURGE', url)
             if not response.ok:
