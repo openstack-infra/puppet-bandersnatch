@@ -1,0 +1,9 @@
+Code-Review+2: Jeremy Stanley <fungi@yuggoth.org>
+Workflow+1: Jeremy Stanley <fungi@yuggoth.org>
+Code-Review+1: ShangXiao <shangxiaobj@inspur.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Fri, 16 Mar 2018 02:21:27 +0000
+Reviewed-on: https://review.openstack.org/553626
+Project: openstack-infra/puppet-bandersnatch
+Branch: refs/heads/master
