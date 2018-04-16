@@ -17,11 +17,12 @@
 # Class to set up bandersnatch mirroring.
 #
 class bandersnatch::mirror (
-  $group       = 'root',
-  $hash_index  = false,
-  $mirror_root = '/srv/static/mirror',
-  $static_root = '/srv/static',
-  $user        = 'root',
+  $group             = 'root',
+  $hash_index        = false,
+  $package_blacklist = [],
+  $mirror_root       = '/srv/static/mirror',
+  $static_root       = '/srv/static',
+  $user              = 'root',
 ) {
 
   if ! defined(File[$static_root]) {
