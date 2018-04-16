@@ -34,6 +34,11 @@ class bandersnatch (
       ensure   => '1.11',
       provider => openstack_pip,
     }
+  else if ($bandersnatch_source == 'pip3') {
+    package { 'bandersnatch':
+      ensure   => 'latest',
+      provider => pip3,
+    }
   } else {
     vcsrepo { '/opt/bandersnatch':
       ensure   => latest,
