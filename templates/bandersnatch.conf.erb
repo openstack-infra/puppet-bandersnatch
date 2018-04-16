@@ -40,4 +40,13 @@ delete-packages = true
 ; generate daily access statistics that will be aggregated on the master PyPI.
 access-log-pattern = /var/log/apache2/pypi.*openstack.org_access.*
 
+<% if not @package_blacklist.empty? -%>
+; blacklist
+; List of PyPI packages not to sync - Useful if malicious packages are mirrored
+[blacklist]
+packages =
+<% @package_blacklist.each do |package| -%>
+  <%= package %>
+<% end -%>
+<% end -%>
 ; vim: set ft=cfg:
