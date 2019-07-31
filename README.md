@@ -1,5 +1,3 @@
-# OpenStack Bandersnatch Module
+# This repo has moved to OpenDev
 
-## Overview
-
-Installs and configures Bandersnatch.
+It can now be found at [https://opendev.org/opendev/puppet-bandersnatch](https://opendev.org/opendev/puppet-bandersnatch)
